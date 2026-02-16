@@ -34,9 +34,9 @@ const Explore = () => {
 
   const FilterSelect = ({ label, value, onChange, options }: { label: string; value: string; onChange: (v: string) => void; options: string[] }) => (
     <div>
-      <label className="mb-1.5 block text-xs font-medium text-muted-foreground">{label}</label>
+      <label className="mb-1.5 block text-xs sm:text-sm font-medium text-muted-foreground">{label}</label>
       <Select value={value} onValueChange={onChange}>
-        <SelectTrigger className="bg-secondary border-border h-9 text-sm">
+        <SelectTrigger className="bg-secondary border-border h-10 sm:h-9 text-sm w-full">
           <SelectValue />
         </SelectTrigger>
         <SelectContent>
@@ -49,27 +49,27 @@ const Explore = () => {
   );
 
   return (
-    <div className="min-h-screen pt-24 pb-16">
-      <div className="container mx-auto px-4">
+    <div className="min-h-screen pt-20 sm:pt-24 pb-12 sm:pb-16 grain-overlay">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Header */}
-        <div className="mb-8">
-          <h1 className="font-display text-3xl font-bold">Explore Projects</h1>
-          <p className="mt-1 text-muted-foreground">Browse {mockProjects.length}+ projects from the Superteam ecosystem</p>
+        <div className="mb-6 sm:mb-10">
+          <h1 className="font-display text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight">Explore Projects</h1>
+          <p className="mt-2 text-sm sm:text-base text-muted-foreground">Browse {mockProjects.length}+ projects from the Superteam ecosystem</p>
         </div>
 
         {/* Search bar */}
-        <div className="mb-6 flex gap-3">
-          <div className="relative flex-1">
-            <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+        <div className="mb-6 sm:mb-8 flex flex-col sm:flex-row gap-3">
+          <div className="relative flex-1 min-w-0">
+            <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground pointer-events-none shrink-0" aria-hidden />
             <Input
               placeholder="Search projects..."
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-              className="bg-secondary border-border pl-10 h-11"
+              className="bg-secondary/80 border-border pl-10 h-11 sm:h-12 rounded-xl text-base sm:text-sm focus-visible:ring-2 focus-visible:ring-primary/50 transition-shadow w-full"
             />
           </div>
           <Select value={sort} onValueChange={setSort}>
-            <SelectTrigger className="w-40 bg-secondary border-border h-11">
+            <SelectTrigger className="w-full sm:w-44 bg-secondary/80 border-border h-11 sm:h-12 rounded-xl text-sm">
               <SelectValue />
             </SelectTrigger>
             <SelectContent>
@@ -80,17 +80,18 @@ const Explore = () => {
           </Select>
           <button
             onClick={() => setShowFilters(!showFilters)}
-            className="flex h-11 items-center gap-2 rounded-lg border border-border bg-secondary px-4 text-sm font-medium transition-colors hover:bg-muted lg:hidden"
+            className="flex h-11 sm:h-12 items-center justify-center gap-2 rounded-xl border border-border bg-secondary/80 px-4 text-sm font-medium transition-colors hover:bg-muted hover:border-primary/30 lg:hidden min-h-[44px]"
           >
-            <SlidersHorizontal className="h-4 w-4" />
+            <SlidersHorizontal className="h-4 w-4 shrink-0" aria-hidden />
+            Filters
           </button>
         </div>
 
-        <div className="flex gap-6">
+        <div className="flex flex-col lg:flex-row gap-6 lg:gap-8">
           {/* Sidebar Filters */}
-          <aside className={`w-56 shrink-0 space-y-4 ${showFilters ? "block" : "hidden"} lg:block`}>
-            <div className="glass-card p-4 space-y-4">
-              <h3 className="font-display font-semibold text-sm">Filters</h3>
+          <aside className={`w-full lg:w-56 shrink-0 space-y-4 ${showFilters ? "block" : "hidden"} lg:block`}>
+            <div className="glass-card p-4 sm:p-5 space-y-4 lg:sticky lg:top-24">
+              <h3 className="font-display font-semibold text-xs sm:text-sm uppercase tracking-wider text-foreground">Filters</h3>
               <FilterSelect label="Category" value={category} onChange={setCategory} options={categories} />
               <FilterSelect label="Stage" value={stage} onChange={setStage} options={stages} />
               <FilterSelect label="Chapter" value={chapter} onChange={setChapter} options={chapters} />
@@ -99,18 +100,24 @@ const Explore = () => {
           </aside>
 
           {/* Project Grid */}
-          <div className="flex-1">
+          <div className="flex-1 min-w-0">
             {filtered.length > 0 ? (
-              <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
-                {filtered.map((project) => (
-                  <ProjectCard key={project.id} project={project} />
+              <div className="grid gap-4 sm:gap-5 grid-cols-1 sm:grid-cols-2 xl:grid-cols-3">
+                {filtered.map((project, i) => (
+                  <div
+                    key={project.id}
+                    className="section-reveal min-w-0"
+                    style={{ animationDelay: `${Math.min(i * 40, 320)}ms`, animationFillMode: "backwards" }}
+                  >
+                    <ProjectCard project={project} />
+                  </div>
                 ))}
               </div>
             ) : (
-              <div className="flex flex-col items-center justify-center py-20 text-center">
-                <p className="text-4xl mb-4">🔍</p>
-                <p className="font-display font-semibold">No projects found</p>
-                <p className="text-sm text-muted-foreground mt-1">Try adjusting your filters</p>
+              <div className="flex flex-col items-center justify-center py-16 sm:py-24 text-center section-reveal px-4">
+                <div className="text-4xl sm:text-5xl mb-4 opacity-80" aria-hidden>🔍</div>
+                <p className="font-display font-semibold text-base sm:text-lg">No projects found</p>
+                <p className="text-sm sm:text-base text-muted-foreground mt-1">Try adjusting your filters or search</p>
               </div>
             )}
           </div>

@@ -7,15 +7,19 @@ export default {
   theme: {
     container: {
       center: true,
-      padding: "2rem",
+      padding: "1rem",
       screens: {
+        sm: "640px",
+        md: "768px",
+        lg: "1024px",
+        xl: "1280px",
         "2xl": "1400px",
       },
     },
     extend: {
       fontFamily: {
-        sans: ["Inter", "system-ui", "sans-serif"],
-        display: ["Space Grotesk", "system-ui", "sans-serif"],
+        sans: ["DM Sans", "system-ui", "sans-serif"],
+        display: ["Syne", "system-ui", "sans-serif"],
       },
       colors: {
         border: "hsl(var(--border))",
@@ -51,8 +55,6 @@ export default {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
-        "solana-purple": "hsl(var(--solana-purple))",
-        "solana-green": "hsl(var(--solana-green))",
         glass: "hsl(var(--glass))",
         "glass-border": "hsl(var(--glass-border))",
         sidebar: {
@@ -104,6 +106,10 @@ export default {
           "0%, 100%": { opacity: "0.4" },
           "50%": { opacity: "1" },
         },
+        marquee: {
+          "0%": { transform: "translateX(0)" },
+          "100%": { transform: "translateX(-50%)" },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
@@ -114,6 +120,7 @@ export default {
         float: "float 6s ease-in-out infinite",
         shimmer: "shimmer 2s linear infinite",
         "pulse-glow": "pulse-glow 3s ease-in-out infinite",
+        marquee: "marquee 40s linear infinite",
       },
     },
   },
