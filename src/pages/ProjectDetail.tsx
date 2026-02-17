@@ -2,12 +2,13 @@ import { useParams, Link } from "react-router-dom";
 import { ArrowLeft, ExternalLink, Star, Users, Eye, BadgeCheck, Trophy, Github } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import ProjectCard from "@/components/ProjectCard";
-import { mockProjects } from "@/data/mockData";
+import { useProjects } from "@/providers/ProjectsProvider";
 
 const ProjectDetail = () => {
   const { id } = useParams();
-  const project = mockProjects.find((p) => p.id === id);
-  const similar = mockProjects.filter((p) => p.id !== id && p.category === project?.category).slice(0, 3);
+  const { projects } = useProjects();
+  const project = projects.find((p) => p.id === id);
+  const similar = projects.filter((p) => p.id !== id && p.category === project?.category).slice(0, 3);
 
   if (!project) {
     return (

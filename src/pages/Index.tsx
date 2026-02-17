@@ -1,8 +1,9 @@
 import { Link } from "react-router-dom";
-import { ArrowRight, Sparkles, TrendingUp, Zap } from "lucide-react";
+import { ArrowRight, Sparkles, TrendingUp, Zap, Compass, Upload, Users, Rocket, HelpCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import ProjectCard from "@/components/ProjectCard";
-import { mockProjects } from "@/data/mockData";
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
+import { useProjects } from "@/providers/ProjectsProvider";
 
 const stats = [
   { label: "Total Projects", value: "420+", icon: Sparkles },
@@ -10,9 +11,54 @@ const stats = [
   { label: "Hackathon Wins", value: "85+", icon: TrendingUp },
 ];
 
+const howItWorks = [
+  {
+    step: "1",
+    title: "Submit your project",
+    description: "Add your Solana project built with or for Superteam. Share a link, description, and tags so others can find it.",
+    icon: Upload,
+  },
+  {
+    step: "2",
+    title: "Get discovered",
+    description: "Your project appears in Explore and can trend. Builders, investors, and the community browse and discover what’s being built.",
+    icon: Compass,
+  },
+  {
+    step: "3",
+    title: "Grow with the community",
+    description: "Connect with other builders, get feedback, and grow visibility within the Superteam and wider Solana ecosystem.",
+    icon: Users,
+  },
+];
+
+const faqs = [
+  {
+    question: "What is SuperProject?",
+    answer: "SuperProject is the open directory and showcase for projects built by the Superteam ecosystem on Solana. Think of it as Product Hunt for Superteam—a place to discover, submit, and promote DeFi, NFTs, tools, and dApps from the community.",
+  },
+  {
+    question: "Who can submit a project?",
+    answer: "Anyone who has built (or is building) a project in the Superteam or Solana ecosystem can submit. Your project should have a link, description, and relevant tags so the community can find and understand it.",
+  },
+  {
+    question: "What is Superteam?",
+    answer: "Superteam is a global community of builders, creators, and operators focused on the Solana ecosystem. They run bounties, hackathons, and programs to grow the Solana ecosystem. Learn more at superteam.fun.",
+  },
+  {
+    question: "Is it free to list my project?",
+    answer: "Yes. Listing your project on SuperProject is free. We’re here to help the Superteam and Solana community discover and support each other’s work.",
+  },
+  {
+    question: "How do projects get featured or trend?",
+    answer: "Projects can appear in Trending and Recently Added based on community engagement and activity. Explore the site to see what’s popular and submit your project to get in front of builders and supporters.",
+  },
+];
+
 const Index = () => {
-  const trendingProjects = mockProjects.filter((p) => p.trending);
-  const recentProjects = mockProjects.slice(0, 6);
+  const { projects } = useProjects();
+  const trendingProjects = projects.filter((p) => p.trending);
+  const recentProjects = projects.slice(0, 6);
 
   return (
     <div className="min-h-screen grain-overlay">
@@ -40,8 +86,10 @@ const Index = () => {
               is building
             </h1>
 
-            <p className="mt-4 sm:mt-6 max-w-xl text-base sm:text-lg text-muted-foreground animate-fade-in-up animation-delay-200 dark:text-white/80">
-              Explore the best projects built by Superteam members on Solana. Submit your project, get discovered, and grow with the community.
+            <p className="mt-4 sm:mt-6 max-w-2xl text-base sm:text-lg text-muted-foreground animate-fade-in-up animation-delay-200 dark:text-white/80">
+              <strong className="text-foreground dark:text-white">SuperProject</strong> is the open directory for projects built by{" "}
+              <a href="https://superteam.fun" target="_blank" rel="noreferrer" className="text-primary hover:underline">Superteam</a>{" "}
+              members on Solana. Explore what the community is building, submit your own project, get discovered, and grow with builders and supporters worldwide.
             </p>
 
             <div className="mt-8 sm:mt-10 flex flex-col gap-3 sm:flex-row animate-fade-in-up animation-delay-300">
@@ -57,6 +105,59 @@ const Index = () => {
                 </Button>
               </Link>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* What is SuperProject — for new users */}
+      <section className="py-12 sm:py-16 md:py-20 relative z-0 border-b border-border">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="max-w-3xl mx-auto text-center">
+            <div className="inline-flex items-center justify-center rounded-xl border border-border bg-card/50 p-3 mb-6">
+              <Rocket className="h-6 w-6 text-primary" aria-hidden />
+            </div>
+            <h2 className="font-display text-xl sm:text-2xl md:text-3xl font-bold text-foreground">
+              What is SuperProject?
+            </h2>
+            <p className="mt-4 text-base sm:text-lg text-muted-foreground leading-relaxed">
+              SuperProject is the go-to showcase for everything built by the <span className="text-foreground dark:text-white font-medium">Superteam</span> ecosystem on Solana—from DeFi and NFTs to tools and dApps. Whether you’re a builder looking for visibility, an investor hunting for the next idea, or someone curious about Solana, you’ll find projects, builders, and traction in one place.
+            </p>
+            <p className="mt-3 text-sm text-muted-foreground">
+              Don’t know Superteam?{" "}
+              <a href="https://superteam.fun" target="_blank" rel="noreferrer" className="text-primary hover:underline font-medium">
+                Learn more about Superteam →
+              </a>
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* How it works */}
+      <section className="py-12 sm:py-16 md:py-20 relative z-0">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-10 sm:mb-14">
+            <h2 className="font-display text-xl sm:text-2xl md:text-3xl font-bold text-foreground">
+              How it works
+            </h2>
+            <p className="mt-2 text-sm sm:text-base text-muted-foreground max-w-xl mx-auto">
+              Submit, get discovered, and grow with the Superteam and Solana community.
+            </p>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 sm:gap-10">
+            {howItWorks.map((item, i) => (
+              <div
+                key={item.step}
+                className="section-reveal relative flex flex-col items-center text-center p-6 rounded-2xl border border-border bg-card/40 hover:bg-card/60 hover:border-primary/20 transition-colors duration-200"
+                style={{ animationDelay: `${i * 100}ms`, animationFillMode: "backwards" }}
+              >
+                <div className="flex h-12 w-12 items-center justify-center rounded-xl gradient-bg text-white font-display font-bold text-lg mb-4">
+                  {item.step}
+                </div>
+                <item.icon className="h-6 w-6 text-primary mb-3" aria-hidden />
+                <h3 className="font-display font-semibold text-lg text-foreground">{item.title}</h3>
+                <p className="mt-2 text-sm text-muted-foreground leading-relaxed">{item.description}</p>
+              </div>
+            ))}
           </div>
         </div>
       </section>
@@ -97,7 +198,7 @@ const Index = () => {
               {[...trendingProjects, ...trendingProjects].map((project, i) => (
                 <div
                   key={`${project.id}-${i}`}
-                  className="w-[300px] shrink-0"
+                  className="w-[min(300px,85vw)] min-w-[260px] sm:w-[300px] shrink-0"
                 >
                   <ProjectCard project={project} />
                 </div>
@@ -129,6 +230,32 @@ const Index = () => {
                 <ProjectCard project={project} />
               </div>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Q&A */}
+      <section className="py-12 sm:py-16 md:py-20 relative z-0 border-t border-border bg-card/30">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="max-w-2xl mx-auto">
+            <div className="flex items-center justify-center gap-2 mb-8">
+              <HelpCircle className="h-6 w-6 text-primary" aria-hidden />
+              <h2 className="font-display text-xl sm:text-2xl md:text-3xl font-bold text-foreground">
+                Frequently asked questions
+              </h2>
+            </div>
+            <Accordion type="single" collapsible className="w-full space-y-3">
+              {faqs.map((faq, i) => (
+                <AccordionItem key={i} value={`faq-${i}`} className="border border-border px-4 rounded-lg bg-background/50">
+                  <AccordionTrigger className="text-left hover:no-underline py-4 px-0">
+                    <span className="font-medium text-foreground pr-2">{faq.question}</span>
+                  </AccordionTrigger>
+                  <AccordionContent className="text-muted-foreground leading-relaxed pb-4 pt-0">
+                    {faq.answer}
+                  </AccordionContent>
+                </AccordionItem>
+              ))}
+            </Accordion>
           </div>
         </div>
       </section>

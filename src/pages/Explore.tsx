@@ -3,9 +3,11 @@ import { Search, SlidersHorizontal } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import ProjectCard from "@/components/ProjectCard";
-import { mockProjects, categories, stages, chapters, hackathons } from "@/data/mockData";
+import { useProjects } from "@/providers/ProjectsProvider";
+import { categories, stages, chapters, hackathons } from "@/data/mockData";
 
 const Explore = () => {
+  const { projects } = useProjects();
   const [search, setSearch] = useState("");
   const [sort, setSort] = useState("popular");
   const [category, setCategory] = useState("All");
@@ -15,7 +17,7 @@ const Explore = () => {
   const [showFilters, setShowFilters] = useState(false);
 
   const filtered = useMemo(() => {
-    let result = [...mockProjects];
+    let result = [...projects];
     if (search) {
       const q = search.toLowerCase();
       result = result.filter((p) => p.name.toLowerCase().includes(q) || p.tagline.toLowerCase().includes(q));
@@ -30,13 +32,13 @@ const Explore = () => {
     else if (sort === "trending") result = result.filter((p) => p.trending).concat(result.filter((p) => !p.trending));
 
     return result;
-  }, [search, sort, category, stage, chapter, hackathon]);
+  }, [projects, search, sort, category, stage, chapter, hackathon]);
 
   const FilterSelect = ({ label, value, onChange, options }: { label: string; value: string; onChange: (v: string) => void; options: string[] }) => (
     <div>
       <label className="mb-1.5 block text-xs sm:text-sm font-medium text-muted-foreground">{label}</label>
       <Select value={value} onValueChange={onChange}>
-        <SelectTrigger className="bg-secondary border-border h-10 sm:h-9 text-sm w-full">
+        <SelectTrigger className="bg-secondary border-border h-11 min-h-[44px] sm:h-9 sm:min-h-0 text-sm w-full">
           <SelectValue />
         </SelectTrigger>
         <SelectContent>
@@ -54,7 +56,7 @@ const Explore = () => {
         {/* Header */}
         <div className="mb-6 sm:mb-10">
           <h1 className="font-display text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight">Explore Projects</h1>
-          <p className="mt-2 text-sm sm:text-base text-muted-foreground">Browse {mockProjects.length}+ projects from the Superteam ecosystem</p>
+          <p className="mt-2 text-sm sm:text-base text-muted-foreground">Browse {projects.length}+ projects from the Superteam ecosystem</p>
         </div>
 
         {/* Search bar */}

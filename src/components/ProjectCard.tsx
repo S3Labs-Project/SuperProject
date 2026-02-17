@@ -29,11 +29,11 @@ const ProjectCard = ({ project }: ProjectCardProps) => (
         </p>
       </div>
     </div>
-    <div className="mt-3 sm:mt-4 flex shrink-0 items-center justify-between gap-2">
+    <div className="mt-3 sm:mt-4 flex shrink-0 flex-wrap items-center justify-between gap-2">
       <span className="rounded-full bg-primary/10 px-2.5 py-0.5 text-xs font-medium text-primary border border-primary/20 truncate max-w-[120px] sm:max-w-[140px]">
         {project.category}
       </span>
-      <div className="flex shrink-0 items-center gap-2 sm:gap-3 text-xs text-muted-foreground">
+      <div className="flex shrink-0 flex-wrap items-center gap-2 sm:gap-3 text-xs text-muted-foreground">
         <span className="flex items-center gap-1 whitespace-nowrap">
           <Star className="h-3 w-3 shrink-0" aria-hidden /> {project.stars}
         </span>

@@ -1,4 +1,5 @@
 import { Project } from "@/types/project";
+import type { PendingSubmission } from "@/types/project";
 
 export const mockProjects: Project[] = [
   {
@@ -198,6 +199,56 @@ export const mockProjects: Project[] = [
     founders: [{ name: "Diego Reyes", role: "Founder", avatar: "DR" }],
     trending: false,
     createdAt: "2024-03-20",
+  },
+];
+
+/** Pending submissions awaiting admin approval */
+export const mockPendingSubmissions: PendingSubmission[] = [
+  {
+    id: "pending-1",
+    name: "Solana Pay Gateway",
+    tagline: "Plug-and-play payment gateway for merchants",
+    description: "Accept SOL and USDC in your store with one integration. Built for e-commerce and marketplaces.",
+    logo: "💳",
+    category: "Payments",
+    stage: "MVP",
+    chapter: "India",
+    hackathon: "Grizzlython",
+    stars: 0,
+    followers: 0,
+    users: 0,
+    verified: false,
+    score: 0,
+    website: "https://solanapaygateway.io",
+    twitter: "https://twitter.com/solanapaygate",
+    github: "https://github.com/solanapaygate",
+    founders: [{ name: "Amit Kumar", role: "Founder", avatar: "AK" }],
+    trending: false,
+    createdAt: new Date().toISOString().slice(0, 10),
+    submittedAt: "2024-03-18T10:30:00Z",
+  },
+  {
+    id: "pending-2",
+    name: "Metaplex Studio",
+    tagline: "No-code NFT launchpad for creators",
+    description: "Launch your NFT collection without writing code. Metadata, royalties, and deployment in one dashboard.",
+    logo: "🎭",
+    category: "NFT",
+    stage: "Idea",
+    chapter: "Brazil",
+    hackathon: "Hyperdrive",
+    stars: 0,
+    followers: 0,
+    users: 0,
+    verified: false,
+    score: 0,
+    website: "",
+    twitter: "https://twitter.com/mplxstudio",
+    github: "",
+    founders: [{ name: "Maria Santos", role: "Creator", avatar: "MS" }],
+    trending: false,
+    createdAt: new Date().toISOString().slice(0, 10),
+    submittedAt: "2024-03-19T14:00:00Z",
   },
 ];
 

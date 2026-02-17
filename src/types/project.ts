@@ -20,3 +20,8 @@ export interface Project {
   trending: boolean;
   createdAt: string;
 }
+
+/** Submission awaiting admin approval; same shape as Project with submittedAt */
+export interface PendingSubmission extends Project {
+  submittedAt: string;
+}

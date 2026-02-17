@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { Rocket } from "lucide-react";
 
 const Footer = () => (
-  <footer className="border-t border-border bg-card/50 relative z-10">
+  <footer className="border-t border-border bg-card/50 relative z-10 pb-[env(safe-area-inset-bottom)]">
     <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-14">
       <div className="grid grid-cols-1 gap-8 sm:gap-10 sm:grid-cols-2 md:grid-cols-4">
         <div className="space-y-4 sm:col-span-2 md:col-span-1 md:max-w-xs">
@@ -19,23 +19,23 @@ const Footer = () => (
         <div>
           <h4 className="mb-3 sm:mb-4 font-display font-semibold text-xs sm:text-sm uppercase tracking-wider text-foreground">Platform</h4>
           <div className="flex flex-col gap-2 sm:gap-3">
-            <Link to="/explore" className="text-sm text-muted-foreground hover:text-primary transition-colors w-fit py-0.5">Explore Projects</Link>
-            <Link to="/submit" className="text-sm text-muted-foreground hover:text-primary transition-colors w-fit py-0.5">Submit Project</Link>
+            <Link to="/explore" className="text-sm text-muted-foreground hover:text-primary transition-colors w-fit py-2 sm:py-0.5 min-h-[44px] sm:min-h-0 flex items-center">Explore Projects</Link>
+            <Link to="/submit" className="text-sm text-muted-foreground hover:text-primary transition-colors w-fit py-2 sm:py-0.5 min-h-[44px] sm:min-h-0 flex items-center">Submit Project</Link>
           </div>
         </div>
         <div>
           <h4 className="mb-3 sm:mb-4 font-display font-semibold text-xs sm:text-sm uppercase tracking-wider text-foreground">Community</h4>
           <div className="flex flex-col gap-2 sm:gap-3">
-            <a href="https://superteam.fun" target="_blank" rel="noreferrer" className="text-sm text-muted-foreground hover:text-primary transition-colors w-fit py-0.5">Superteam</a>
-            <a href="https://solana.com" target="_blank" rel="noreferrer" className="text-sm text-muted-foreground hover:text-primary transition-colors w-fit py-0.5">Solana</a>
+            <a href="https://superteam.fun" target="_blank" rel="noreferrer" className="text-sm text-muted-foreground hover:text-primary transition-colors w-fit py-2 sm:py-0.5 min-h-[44px] sm:min-h-0 flex items-center">Superteam</a>
+            <a href="https://solana.com" target="_blank" rel="noreferrer" className="text-sm text-muted-foreground hover:text-primary transition-colors w-fit py-2 sm:py-0.5 min-h-[44px] sm:min-h-0 flex items-center">Solana</a>
           </div>
         </div>
         <div>
           <h4 className="mb-3 sm:mb-4 font-display font-semibold text-xs sm:text-sm uppercase tracking-wider text-foreground">Social</h4>
           <div className="flex flex-col gap-2 sm:gap-3">
-            <a href="#" className="text-sm text-muted-foreground hover:text-primary transition-colors w-fit py-0.5">Twitter / X</a>
-            <a href="#" className="text-sm text-muted-foreground hover:text-primary transition-colors w-fit py-0.5">Discord</a>
-            <a href="#" className="text-sm text-muted-foreground hover:text-primary transition-colors w-fit py-0.5">GitHub</a>
+            <a href="#" className="text-sm text-muted-foreground hover:text-primary transition-colors w-fit py-2 sm:py-0.5 min-h-[44px] sm:min-h-0 flex items-center">Twitter / X</a>
+            <a href="#" className="text-sm text-muted-foreground hover:text-primary transition-colors w-fit py-2 sm:py-0.5 min-h-[44px] sm:min-h-0 flex items-center">Discord</a>
+            <a href="#" className="text-sm text-muted-foreground hover:text-primary transition-colors w-fit py-2 sm:py-0.5 min-h-[44px] sm:min-h-0 flex items-center">GitHub</a>
           </div>
         </div>
       </div>
