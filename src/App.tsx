@@ -16,6 +16,8 @@ import Submit from "./pages/Submit";
 import Admin from "./pages/Admin";
 import AdminProjectDetail from "./pages/AdminProjectDetail";
 import AdminSubmissionDetail from "./pages/AdminSubmissionDetail";
+import Leaderboard from "./pages/Leaderboard";
+import Members from "./pages/Members";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -41,6 +43,8 @@ const App = () => (
                 <Route path="/admin" element={<Admin />} />
                 <Route path="/admin/project/:id" element={<AdminProjectDetail />} />
                 <Route path="/admin/submission/:id" element={<AdminSubmissionDetail />} />
+                <Route path="/leaderboard" element={<Leaderboard />} />
+                <Route path="/members" element={<Members />} />
                 <Route path="*" element={<NotFound />} />
               </Routes>
             </main>

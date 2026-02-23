@@ -110,6 +110,39 @@ export default {
           "0%": { transform: "translateX(0)" },
           "100%": { transform: "translateX(-50%)" },
         },
+        "float-slow": {
+          "0%, 100%": { transform: "translateY(0) translateX(0)" },
+          "33%": { transform: "translateY(-12px) translateX(4px)" },
+          "66%": { transform: "translateY(-6px) translateX(-4px)" },
+        },
+        "float-slower": {
+          "0%, 100%": { transform: "translateY(0) scale(1)" },
+          "50%": { transform: "translateY(-16px) scale(1.02)" },
+        },
+        "hero-orb-pulse": {
+          "0%, 100%": { opacity: "0.5", transform: "scale(1)" },
+          "50%": { opacity: "0.9", transform: "scale(1.1)" },
+        },
+        "hero-illustration-in": {
+          "0%": { opacity: "0", transform: "translateY(24px) scale(0.96)" },
+          "100%": { opacity: "1", transform: "translateY(0) scale(1)" },
+        },
+        "hero-shine": {
+          "0%": { backgroundPosition: "200% 50%" },
+          "100%": { backgroundPosition: "-200% 50%" },
+        },
+        "scale-in": {
+          "0%": { opacity: "0", transform: "scale(0.92)" },
+          "100%": { opacity: "1", transform: "scale(1)" },
+        },
+        "slide-in-left": {
+          "0%": { opacity: "0", transform: "translateX(-12px)" },
+          "100%": { opacity: "1", transform: "translateX(0)" },
+        },
+        "slide-in-right": {
+          "0%": { opacity: "0", transform: "translateX(12px)" },
+          "100%": { opacity: "1", transform: "translateX(0)" },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.25s cubic-bezier(0.4,0,0.2,1)",
@@ -118,9 +151,21 @@ export default {
         "fade-in-up": "fade-in-up 0.6s ease-out forwards",
         "slide-up": "slide-up 0.8s ease-out forwards",
         float: "float 6s ease-in-out infinite",
+        "float-slow": "float-slow 8s ease-in-out infinite",
+        "float-slower": "float-slower 10s ease-in-out infinite",
         shimmer: "shimmer 2s linear infinite",
         "pulse-glow": "pulse-glow 3s ease-in-out infinite",
+        "hero-orb-pulse": "hero-orb-pulse 4s ease-in-out infinite",
+        "hero-illustration-in": "hero-illustration-in 0.9s cubic-bezier(0.22, 1, 0.36, 1) forwards",
+        "hero-shine": "hero-shine 6s ease-in-out infinite",
         marquee: "marquee 40s linear infinite",
+        "scale-in": "scale-in 0.5s cubic-bezier(0.22, 1, 0.36, 1) forwards",
+        "slide-in-left": "slide-in-left 0.5s cubic-bezier(0.22, 1, 0.36, 1) forwards",
+        "slide-in-right": "slide-in-right 0.5s cubic-bezier(0.22, 1, 0.36, 1) forwards",
+      },
+      animationDelay: {
+        "400": "400ms",
+        "600": "600ms",
       },
     },
   },

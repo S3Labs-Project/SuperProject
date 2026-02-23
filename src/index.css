@@ -143,6 +143,11 @@
     background-image: linear-gradient(135deg, hsl(var(--primary)) 0%, hsl(257 85% 68%) 100%);
   }
 
+  .gradient-text-shine {
+    background-size: 200% auto;
+    animation: hero-shine 6s ease-in-out infinite;
+  }
+
   .gradient-border {
     @apply relative;
     background: linear-gradient(135deg, hsl(var(--primary) / 0.15), hsl(var(--primary) / 0.05));
@@ -201,6 +206,33 @@
   .section-reveal {
     animation: section-reveal 0.6s cubic-bezier(0.22, 1, 0.36, 1) both;
   }
+
+  /* Scroll-triggered reveal: visible by default (slight offset), soft slide-up when .in-view */
+  .reveal-on-scroll {
+    opacity: 1;
+    transform: translateY(12px);
+  }
+  .reveal-on-scroll.in-view {
+    animation: section-reveal-soft 0.65s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  }
+
+  /* Stagger children: use .stagger-1, .stagger-2, etc. for delay */
+  .stagger-1 { animation-delay: 50ms; }
+  .stagger-2 { animation-delay: 120ms; }
+  .stagger-3 { animation-delay: 190ms; }
+  .stagger-4 { animation-delay: 260ms; }
+  .stagger-5 { animation-delay: 330ms; }
+  .stagger-6 { animation-delay: 400ms; }
+
+  /* Scroll-triggered stagger: visible by default (slight offset), soft slide-up when parent gets .in-view */
+  .reveal-section .section-reveal {
+    opacity: 1;
+    transform: translateY(12px);
+    animation: none;
+  }
+  .reveal-section.in-view .section-reveal {
+    animation: section-reveal-soft 0.6s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  }
 }
 
 @keyframes section-reveal {
@@ -211,6 +243,32 @@
   to {
     opacity: 1;
     transform: translateY(0);
+  }
+}
+
+/* Soft reveal: already visible, subtle slide-up when in view */
+@keyframes section-reveal-soft {
+  from {
+    opacity: 1;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Respect reduced motion: skip or shorten animations */
+@media (prefers-reduced-motion: reduce) {
+  .reveal-on-scroll.in-view,
+  .reveal-section.in-view .section-reveal {
+    animation: none;
+  }
+  .section-reveal,
+  .animate-fade-in,
+  .animate-fade-in-up {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
   }
 }
 

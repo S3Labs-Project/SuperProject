@@ -4,6 +4,8 @@ import { Button } from "@/components/ui/button";
 import ProjectCard from "@/components/ProjectCard";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { useProjects } from "@/providers/ProjectsProvider";
+import HeroIllustration from "@/components/HeroIllustration";
+import { useInView } from "@/hooks/useInView";
 
 const stats = [
   { label: "Total Projects", value: "420+", icon: Sparkles },
@@ -60,50 +62,65 @@ const Index = () => {
   const trendingProjects = projects.filter((p) => p.trending);
   const recentProjects = projects.slice(0, 6);
 
+  const { ref: whatIsRef, inView: whatIsInView } = useInView();
+  const { ref: howItWorksRef, inView: howItWorksInView } = useInView();
+  const { ref: statsRef, inView: statsInView } = useInView();
+  const { ref: trendingRef, inView: trendingInView } = useInView();
+  const { ref: recentRef, inView: recentInView } = useInView();
+  const { ref: faqRef, inView: faqInView } = useInView();
+
   return (
     <div className="min-h-screen grain-overlay">
-      {/* Hero — purple gradient in dark, subtle in light */}
+      {/* Hero — purple gradient, illustration, animated orbs */}
       <section className="relative z-0 overflow-hidden pt-28 pb-16 sm:pt-32 sm:pb-20 md:pt-40 md:pb-28">
         <div className="absolute inset-0 overflow-hidden">
-          {/* Dark: deep purple gradient; Light: soft purple tint */}
           <div className="absolute inset-0 dark:hero-gradient opacity-100 bg-transparent" />
           <div className="absolute inset-0 bg-gradient-to-b from-primary/[0.06] via-transparent to-transparent dark:from-transparent dark:via-transparent dark:to-transparent" />
-          <div className="absolute top-0 right-0 h-[500px] w-[500px] rounded-full bg-primary/10 blur-[120px] -translate-y-1/4 translate-x-1/4 dark:bg-primary/20" />
-          <div className="absolute bottom-0 left-0 h-[350px] w-[400px] rounded-full bg-primary/6 blur-[100px] -translate-x-1/3 translate-y-1/3" />
+          {/* Animated floating orbs */}
+          <div className="absolute top-0 right-0 h-[500px] w-[500px] rounded-full bg-primary/10 blur-[120px] -translate-y-1/4 translate-x-1/4 dark:bg-primary/20 animate-float-slow" />
+          <div className="absolute bottom-0 left-0 h-[350px] w-[400px] rounded-full bg-primary/6 blur-[100px] -translate-x-1/3 translate-y-1/3 animate-float-slower" />
+          <div className="absolute top-1/3 left-1/4 h-[200px] w-[200px] rounded-full bg-primary/15 blur-[80px] animate-hero-orb-pulse" />
+          <div className="absolute bottom-1/4 right-1/3 h-[180px] w-[180px] rounded-full bg-primary/10 blur-[60px] animate-float" />
           <div className="absolute inset-0 bg-[linear-gradient(hsl(var(--border)/0.04)_1px,transparent_1px),linear-gradient(90deg,hsl(var(--border)/0.04)_1px,transparent_1px)] bg-[size:64px_64px] dark:opacity-50" />
         </div>
 
         <div className="container relative z-10 mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-left">
-            <div className="mb-4 sm:mb-6 inline-flex items-center gap-2 rounded-full border border-border bg-card/60 px-3 py-1.5 sm:px-4 text-xs sm:text-sm font-medium text-muted-foreground backdrop-blur-sm animate-fade-in dark:bg-card/40">
-              <span className="h-1.5 w-1.5 rounded-full bg-primary shrink-0" />
-              <span className="truncate max-w-[200px] sm:max-w-none">Product Hunt for Solana Superteam</span>
+          <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-12 lg:gap-16">
+            <div className="text-left flex-1 min-w-0">
+              <div className="mb-4 sm:mb-6 inline-flex items-center gap-2 rounded-full border border-border bg-card/60 px-3 py-1.5 sm:px-4 text-xs sm:text-sm font-medium text-muted-foreground backdrop-blur-sm animate-fade-in dark:bg-card/40 transition-transform duration-300 hover:scale-[1.02] hover:border-primary/30">
+                <span className="h-1.5 w-1.5 rounded-full bg-primary shrink-0 animate-pulse" />
+                <span className="truncate max-w-[200px] sm:max-w-none">Product Hunt for Solana Superteam</span>
+              </div>
+
+              <h1 className="font-display text-3xl font-bold leading-[1.15] tracking-tight sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl animate-fade-in animation-delay-100 dark:text-white">
+                Discover what{" "}
+                <span className="gradient-text gradient-text-shine">Superteam</span>{" "}
+                is building
+              </h1>
+
+              <p className="mt-4 sm:mt-6 max-w-2xl text-base sm:text-lg text-muted-foreground animate-fade-in-up animation-delay-200 dark:text-white/80">
+                <strong className="text-foreground dark:text-white">SuperProject</strong> is the open directory for projects built by{" "}
+                <a href="https://superteam.fun" target="_blank" rel="noreferrer" className="text-primary hover:underline transition-opacity duration-200 hover:opacity-90">Superteam</a>{" "}
+                members on Solana. Explore what the community is building, submit your own project, get discovered, and grow with builders and supporters worldwide.
+              </p>
+
+              <div className="mt-8 sm:mt-10 flex flex-col gap-3 sm:flex-row animate-fade-in-up animation-delay-300">
+                <Link to="/submit" className="w-full sm:w-auto group">
+                  <Button size="lg" className="gradient-bg border-0 px-6 sm:px-8 font-semibold text-white hover:opacity-90 h-11 sm:h-12 w-full sm:w-auto text-base transition-all duration-200 group-hover:scale-[1.02] group-active:scale-[0.98]">
+                    Submit Project
+                    <ArrowRight className="ml-2 h-4 w-4 shrink-0 transition-transform group-hover:translate-x-0.5" />
+                  </Button>
+                </Link>
+                <Link to="/explore" className="w-full sm:w-auto group">
+                  <Button size="lg" variant="outline" className="px-6 sm:px-8 h-11 sm:h-12 w-full sm:w-auto text-base border-border hover:bg-secondary hover:border-primary/30 transition-all duration-200 group-hover:scale-[1.02] group-active:scale-[0.98]">
+                    Explore Projects
+                  </Button>
+                </Link>
+              </div>
             </div>
 
-            <h1 className="font-display text-3xl font-bold leading-[1.15] tracking-tight sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl animate-fade-in animation-delay-100 dark:text-white">
-              Discover what{" "}
-              <span className="gradient-text">Superteam</span>{" "}
-              is building
-            </h1>
-
-            <p className="mt-4 sm:mt-6 max-w-2xl text-base sm:text-lg text-muted-foreground animate-fade-in-up animation-delay-200 dark:text-white/80">
-              <strong className="text-foreground dark:text-white">SuperProject</strong> is the open directory for projects built by{" "}
-              <a href="https://superteam.fun" target="_blank" rel="noreferrer" className="text-primary hover:underline">Superteam</a>{" "}
-              members on Solana. Explore what the community is building, submit your own project, get discovered, and grow with builders and supporters worldwide.
-            </p>
-
-            <div className="mt-8 sm:mt-10 flex flex-col gap-3 sm:flex-row animate-fade-in-up animation-delay-300">
-              <Link to="/submit" className="w-full sm:w-auto">
-                <Button size="lg" className="gradient-bg border-0 px-6 sm:px-8 font-semibold text-white hover:opacity-90 hover:scale-[1.02] h-11 sm:h-12 w-full sm:w-auto text-base transition-transform duration-200">
-                  Submit Project
-                  <ArrowRight className="ml-2 h-4 w-4 shrink-0" />
-                </Button>
-              </Link>
-              <Link to="/explore" className="w-full sm:w-auto">
-                <Button size="lg" variant="outline" className="px-6 sm:px-8 h-11 sm:h-12 w-full sm:w-auto text-base border-border hover:bg-secondary hover:border-primary/30 transition-colors duration-200">
-                  Explore Projects
-                </Button>
-              </Link>
+            <div className="flex-shrink-0 lg:w-[45%] xl:w-[42%] flex items-center justify-center">
+              <HeroIllustration />
             </div>
           </div>
         </div>
@@ -112,8 +129,11 @@ const Index = () => {
       {/* What is SuperProject — for new users */}
       <section className="py-12 sm:py-16 md:py-20 relative z-0 border-b border-border">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="max-w-3xl mx-auto text-center">
-            <div className="inline-flex items-center justify-center rounded-xl border border-border bg-card/50 p-3 mb-6">
+          <div
+            ref={whatIsRef}
+            className={`max-w-3xl mx-auto text-center reveal-on-scroll ${whatIsInView ? "in-view" : ""}`}
+          >
+            <div className="inline-flex items-center justify-center rounded-xl border border-border bg-card/50 p-3 mb-6 transition-transform duration-300 hover:scale-110">
               <Rocket className="h-6 w-6 text-primary" aria-hidden />
             </div>
             <h2 className="font-display text-xl sm:text-2xl md:text-3xl font-bold text-foreground">
@@ -124,8 +144,8 @@ const Index = () => {
             </p>
             <p className="mt-3 text-sm text-muted-foreground">
               Don’t know Superteam?{" "}
-              <a href="https://superteam.fun" target="_blank" rel="noreferrer" className="text-primary hover:underline font-medium">
-                Learn more about Superteam →
+                <a href="https://superteam.fun" target="_blank" rel="noreferrer" className="text-primary hover:underline font-medium transition-opacity duration-200 hover:opacity-90 inline-flex items-center gap-0.5 group">
+                Learn more about Superteam <span className="group-hover:translate-x-0.5 transition-transform duration-200 inline-block">→</span>
               </a>
             </p>
           </div>
@@ -134,7 +154,10 @@ const Index = () => {
 
       {/* How it works */}
       <section className="py-12 sm:py-16 md:py-20 relative z-0">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+        <div
+          ref={howItWorksRef}
+          className={`container mx-auto px-4 sm:px-6 lg:px-8 reveal-section ${howItWorksInView ? "in-view" : ""}`}
+        >
           <div className="text-center mb-10 sm:mb-14">
             <h2 className="font-display text-xl sm:text-2xl md:text-3xl font-bold text-foreground">
               How it works
@@ -147,7 +170,7 @@ const Index = () => {
             {howItWorks.map((item, i) => (
               <div
                 key={item.step}
-                className="section-reveal relative flex flex-col items-center text-center p-6 rounded-2xl border border-border bg-card/40 hover:bg-card/60 hover:border-primary/20 transition-colors duration-200"
+                className="section-reveal relative flex flex-col items-center text-center p-6 rounded-2xl border border-border bg-card/40 hover:bg-card/60 hover:border-primary/20 transition-all duration-300 hover:scale-[1.02] hover:shadow-lg hover:shadow-primary/5"
                 style={{ animationDelay: `${i * 100}ms`, animationFillMode: "backwards" }}
               >
                 <div className="flex h-12 w-12 items-center justify-center rounded-xl gradient-bg text-white font-display font-bold text-lg mb-4">
@@ -164,12 +187,15 @@ const Index = () => {
 
       {/* Stats — staggered reveal */}
       <section className="border-y border-border bg-card/40 relative z-0">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-14">
+        <div
+          ref={statsRef}
+          className={`container mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-14 reveal-section ${statsInView ? "in-view" : ""}`}
+        >
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 sm:gap-8">
             {stats.map((stat, i) => (
               <div
                 key={stat.label}
-                className="stat-glow flex flex-col items-center gap-2 py-4 text-center section-reveal"
+                className="stat-glow flex flex-col items-center gap-2 py-4 text-center section-reveal transition-transform duration-300 hover:scale-105"
                 style={{ animationDelay: `${i * 80}ms`, animationFillMode: "backwards" }}
               >
                 <stat.icon className="h-5 w-5 sm:h-6 sm:w-6 text-primary" aria-hidden />
@@ -184,13 +210,17 @@ const Index = () => {
       {/* Trending — horizontal scroll with stagger */}
       <section className="py-12 sm:py-16 md:py-24 relative z-0">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="mb-6 sm:mb-10 flex flex-col sm:flex-row sm:items-end sm:justify-between gap-3 sm:gap-4">
+          <div
+            ref={trendingRef}
+            className={`mb-6 sm:mb-10 flex flex-col sm:flex-row sm:items-end sm:justify-between gap-3 sm:gap-4 reveal-on-scroll ${trendingInView ? "in-view" : ""}`}
+          >
             <div>
               <h2 className="font-display text-xl sm:text-2xl md:text-3xl font-bold">Trending Projects</h2>
               <p className="mt-1 text-sm sm:text-base text-muted-foreground">Most popular this week</p>
             </div>
-            <Link to="/explore" className="text-sm font-medium text-primary hover:text-accent transition-colors shrink-0">
-              View all →
+            <Link to="/explore" className="text-sm font-medium text-primary hover:text-accent transition-all duration-200 shrink-0 inline-flex items-center gap-1 group/link">
+              <span className="border-b border-transparent group-hover/link:border-primary transition-colors duration-200">View all</span>
+              <span className="group-hover/link:translate-x-0.5 transition-transform duration-200 inline-block">→</span>
             </Link>
           </div>
           <div className="overflow-hidden -mx-4 sm:-mx-6 lg:-mx-8">
@@ -210,14 +240,18 @@ const Index = () => {
 
       {/* Recently Added — asymmetric grid */}
       <section className="pb-16 sm:pb-24 relative z-0">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+        <div
+          ref={recentRef}
+          className={`container mx-auto px-4 sm:px-6 lg:px-8 reveal-section ${recentInView ? "in-view" : ""}`}
+        >
           <div className="mb-6 sm:mb-10 flex flex-col sm:flex-row sm:items-end sm:justify-between gap-3 sm:gap-4">
             <div>
               <h2 className="font-display text-xl sm:text-2xl md:text-3xl font-bold">Recently Added</h2>
               <p className="mt-1 text-sm sm:text-base text-muted-foreground">Fresh from the community</p>
             </div>
-            <Link to="/explore" className="text-sm font-medium text-primary hover:text-accent transition-colors shrink-0">
-              View all →
+            <Link to="/explore" className="text-sm font-medium text-primary hover:text-accent transition-all duration-200 shrink-0 inline-flex items-center gap-1 group/link">
+              <span className="border-b border-transparent group-hover/link:border-primary transition-colors duration-200">View all</span>
+              <span className="group-hover/link:translate-x-0.5 transition-transform duration-200 inline-block">→</span>
             </Link>
           </div>
           <div className="grid gap-4 sm:gap-5 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
@@ -225,7 +259,7 @@ const Index = () => {
               <div
                 key={project.id}
                 className="section-reveal min-w-0"
-                style={{ animationDelay: `${200 + i * 70}ms`, animationFillMode: "backwards" }}
+                style={{ animationDelay: `${i * 70}ms`, animationFillMode: "backwards" }}
               >
                 <ProjectCard project={project} />
               </div>
@@ -236,17 +270,25 @@ const Index = () => {
 
       {/* Q&A */}
       <section className="py-12 sm:py-16 md:py-20 relative z-0 border-t border-border bg-card/30">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+        <div
+          ref={faqRef}
+          className={`container mx-auto px-4 sm:px-6 lg:px-8 reveal-section ${faqInView ? "in-view" : ""}`}
+        >
           <div className="max-w-2xl mx-auto">
             <div className="flex items-center justify-center gap-2 mb-8">
-              <HelpCircle className="h-6 w-6 text-primary" aria-hidden />
+              <HelpCircle className="h-6 w-6 text-primary transition-transform duration-300 hover:scale-110" aria-hidden />
               <h2 className="font-display text-xl sm:text-2xl md:text-3xl font-bold text-foreground">
                 Frequently asked questions
               </h2>
             </div>
             <Accordion type="single" collapsible className="w-full space-y-3">
               {faqs.map((faq, i) => (
-                <AccordionItem key={i} value={`faq-${i}`} className="border border-border px-4 rounded-lg bg-background/50">
+                <AccordionItem
+                  key={i}
+                  value={`faq-${i}`}
+                  className="section-reveal border border-border px-4 rounded-lg bg-background/50 transition-shadow duration-200 hover:shadow-md hover:shadow-primary/5"
+                  style={{ animationDelay: `${i * 60}ms`, animationFillMode: "backwards" }}
+                >
                   <AccordionTrigger className="text-left hover:no-underline py-4 px-0">
                     <span className="font-medium text-foreground pr-2">{faq.question}</span>
                   </AccordionTrigger>

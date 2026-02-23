@@ -1,5 +1,5 @@
 import { Link, useLocation } from "react-router-dom";
-import { Rocket, Menu, X, Sun, Moon, LayoutDashboard } from "lucide-react";
+import { Rocket, Menu, X, Sun, Moon } from "lucide-react";
 import { useTheme } from "next-themes";
 import { Button } from "@/components/ui/button";
 import WalletConnectButton from "@/components/WalletConnectButton";
@@ -16,7 +16,9 @@ const Navbar = () => {
   const links = [
     { to: "/", label: "Home" },
     { to: "/explore", label: "Explore" },
-    { to: "/admin", label: "Admin", icon: LayoutDashboard },
+    { to: "/leaderboard", label: "Leaderboard" },
+    { to: "/members", label: "Members" },
+    { to: "/admin", label: "Admin" },
   ];
 
   const isDark = mounted && (resolvedTheme === "dark" || theme === "dark");
@@ -40,7 +42,6 @@ const Navbar = () => {
                 location.pathname === link.to ? "text-foreground" : "text-muted-foreground"
               } ${location.pathname === link.to ? "after:absolute after:bottom-0 after:left-0 after:right-0 after:h-px after:bg-primary" : ""}`}
             >
-              {"icon" in link && link.icon ? <link.icon className="h-4 w-4 shrink-0" aria-hidden /> : null}
               {link.label}
             </Link>
           ))}
@@ -90,7 +91,6 @@ const Navbar = () => {
                   location.pathname === link.to ? "text-foreground bg-secondary/50" : "text-muted-foreground"
                 } hover:text-foreground hover:bg-secondary/50 transition-colors`}
               >
-                {"icon" in link && link.icon ? <link.icon className="h-4 w-4 shrink-0" aria-hidden /> : null}
                 {link.label}
               </Link>
             ))}
